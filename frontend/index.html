@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Personas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Personas</h1>
+        <table id="personasTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>País</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos se insertarán aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Esta función se ejecutará al cargar la página
+        document.addEventListener("DOMContentLoaded", function() {
+            // URL de tu API real desplegada en Vercel
+            const url = "https://deploy-kappa-hazel.vercel.app/";  // Reemplaza con tu URL real de API
+
+            // Realiza la solicitud GET a tu API
+            fetch(url)
+                .then(response => response.json())  // Convierte la respuesta en JSON
+                .then(data => {
+                    // Aquí obtenemos los datos
+                    const personas = data.datos;
+
+                    // Obtenemos el cuerpo de la tabla
+                    const tbody = document.getElementById("personasTable").getElementsByTagName("tbody")[0];
+
+                    // Limpiamos la tabla antes de agregar nuevos datos
+                    tbody.innerHTML = "";
+
+                    // Iteramos sobre los datos y agregamos filas a la tabla
+                    personas.forEach(persona => {
+                        const row = tbody.insertRow();
+                        row.innerHTML = `
+                            <td>${persona.id}</td>
+                            <td>${persona.nombre}</td>
+                            <td>${persona.edad}</td>
+                            <td>${persona.pais}</td>
+                        `;
+                    });
+                })
+                .catch(error => console.error('Error al cargar los datos:', error));  // Manejo de errores
+        });
+    </script>
+</body>
+</html>
