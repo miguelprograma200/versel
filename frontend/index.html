@@ -40,6 +40,7 @@
                     <th>Nombre</th>
                     <th>Edad</th>
                     <th>País</th>
+                    <th>Imagen</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +53,7 @@
         // Esta función se ejecutará al cargar la página
         document.addEventListener("DOMContentLoaded", function() {
             // URL de tu API real desplegada en Vercel
-            const url = "https://deploy-kappa-hazel.vercel.app/";  // Reemplaza con tu URL real de API
+            const url = "https://versel-liart.vercel.app/";  // Reemplaza con tu URL real de API
 
             // Realiza la solicitud GET a tu API
             fetch(url)
@@ -75,6 +76,7 @@
                             <td>${persona.nombre}</td>
                             <td>${persona.edad}</td>
                             <td>${persona.pais}</td>
+                            <td><img src="${persona.img || ''}" alt="${persona.nombre}" style="width:80px;max-height:80px;object-fit:cover;border-radius:4px"></td>
                         `;
                     });
                 })
